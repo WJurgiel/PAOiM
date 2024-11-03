@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClassTeacher {
     String groupName;
@@ -14,25 +15,43 @@ public class ClassTeacher {
     }
 
     void addTeacher(Teacher t) {
-        if(teachers.size() < maxTeachers) teachers.add(t);
-        else System.out.println("Couldn't add teacher: " + t.getFullName());
+        if(teachers.size() >= maxTeachers) {
+            System.out.println("Couldn't add teacher: " + t.getFullName() + " | Reason: Group full");
+            return;
+        }
+        if(teachers.contains(t)) {
+            System.out.println("Couldn't add teacher: " + t.getFullName() + " | Reason: The teacher is aready in group");
+            return;
+        }
+        teachers.add(t);
+        System.out.println("Teacher added [ " + teachers.size() + " / " + maxTeachers + " ]");
+
+
     }
     void addSalary(Teacher t, double salary){
-        t.setSalary(salary);
+        t.setSalary(salary + t.getSalary());
     }
     void removeTeacher(Teacher t) {
         teachers.remove(t);
+        System.out.println("Teacher removed [ " + t.getFullName() + " ]");
     }
     void changeCondition(Teacher t, TeacherConditions cond){
+        TeacherConditions prevCond = t.getCondition();
+
         t.setCondition(cond);
+
+        System.out.println(t.getFullName() + " " + prevCond + " -> " + cond);
     }
-    void search(String surname) {
-        for(Teacher t : teachers) {
-            if(t.getSurname().toLowerCase() == surname.toLowerCase()){
-                t.printShort();
-            }
-        }
-    }// use Comparator
+    public  void search(String surname) {
+        Comparator<Teacher> surnameComparator = Comparator.comparing(Teacher::getSurname, String.CASE_INSENSITIVE_ORDER);
+
+        teachers.stream()
+                .filter(teacher -> {
+                    return surnameComparator.compare(teacher, new Teacher("", surname, null, 0, 0)) == 0;
+                })
+                .forEach(System.out::println);
+
+    }
     void searchPartial(String fragment){
         //fragment
         for(Teacher t: teachers){
@@ -41,22 +60,21 @@ public class ClassTeacher {
             }
         }
     }
-    int countByCondition(TeacherConditions con){
+    void countByCondition(TeacherConditions con){
         int counter = 0;
         for(Teacher t : teachers){
             if(t.getCondition() == con) counter++;
         }
-        return counter;
+        System.out.println(groupName + " - " + con + ": " + counter);
     }
     void summary(){
-        System.out.println(groupName);
         for(Teacher t : teachers){
-            t.printShort();
+            System.out.println(t);
         }
     }
     void sortByName(){
-        System.out.println("Sorted by Name");
         Collections.sort(teachers);
+        System.out.println("Sorted by Name");
     }
     void sortBySalary(){
         System.out.println("Sorted by salary");
@@ -64,6 +82,6 @@ public class ClassTeacher {
     }
     void max(){
         Teacher maxSalaryTeacher = Collections.max(teachers, new SalaryComparator());
-        maxSalaryTeacher.printShort();
+        System.out.println(maxSalaryTeacher);
     }
 }

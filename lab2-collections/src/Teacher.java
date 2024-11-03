@@ -38,14 +38,15 @@ public class Teacher implements Comparable<Teacher> {
     }
     public void printShort(){
         System.out.println(name + " " + surname + " " + yearOfBirth + " " + salary + " " + teacherCondition);
-//        System.out.printf("%s\t%s\t%d\t%d\t%s\n", name, surname, yearOfBirth, salary, teacherCondition);
-
+    }
+    public String toString() {
+        return name + " " + surname + " " + yearOfBirth + " " + salary + " " + teacherCondition;
     }
     @Override
     public int compareTo(Teacher t) {
-        int surnames = surname.compareTo(t.surname);
+        int surnames = name.compareToIgnoreCase(t.name);
         if(surnames == 0){
-            return name.compareTo(t.name);
+            return surname.compareToIgnoreCase(t.surname);
         }else{
             return surnames;
         }
