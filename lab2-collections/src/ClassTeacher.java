@@ -81,7 +81,10 @@ public class ClassTeacher {
        Collections.sort(teachers, new SalaryComparator());
     }
     void max(){
-        Teacher maxSalaryTeacher = Collections.max(teachers, new SalaryComparator());
+        Teacher maxSalaryTeacher = Collections.max(teachers, (t1,t2) -> Integer.compare(
+                Integer.valueOf((int)t1.getSalary()),
+                Integer.valueOf((int) t2.getSalary()))
+        );
         System.out.println(maxSalaryTeacher);
     }
 }

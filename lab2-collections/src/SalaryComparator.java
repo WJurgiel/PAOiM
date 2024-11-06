@@ -5,7 +5,7 @@ public class SalaryComparator implements Comparator<Teacher> {
         Integer salary1 = Integer.valueOf((int)t1.getSalary());
         Integer salary2 = Integer.valueOf((int)t2.getSalary());
 
-        return Integer.compare(salary1, salary2);
+        return Integer.compare(salary2, salary1);
     }
 
 }
