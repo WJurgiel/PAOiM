@@ -1,3 +1,4 @@
+package com.example.teachers;
 import java.util.Comparator;
 
 public class SalaryComparator implements Comparator<Teacher> {
