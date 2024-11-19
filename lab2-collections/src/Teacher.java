@@ -44,9 +44,9 @@ public class Teacher implements Comparable<Teacher> {
     }
     @Override
     public int compareTo(Teacher t) {
-        int surnames = surname.compareToIgnoreCase(t.surname);
+        int surnames = name.compareToIgnoreCase(t.name);
         if(surnames == 0){
-            return name.compareToIgnoreCase(t.name);
+            return surname.compareToIgnoreCase(t.surname);
         }else{
             return surnames;
         }
