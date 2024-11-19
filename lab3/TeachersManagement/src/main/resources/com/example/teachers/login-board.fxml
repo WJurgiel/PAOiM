@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="244.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.LoginBoardController">
+   <children>
+      <Label alignment="CENTER" layoutY="42.0" prefHeight="85.0" prefWidth="600.0" text="ESystem">
+         <font>
+            <Font name="Calisto MT" size="53.0" />
+         </font>
+      </Label>
+      <Label layoutX="174.0" layoutY="135.0" prefHeight="31.0" prefWidth="56.0" text="Login">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextField" layoutX="230.0" layoutY="138.0" prefHeight="25.0" prefWidth="168.0" promptText="username..." />
+      <Button layoutX="277.0" layoutY="178.0" mnemonicParsing="false" onAction="#login" text="Login" />
+   </children>
+</AnchorPane>
