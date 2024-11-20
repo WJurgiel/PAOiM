@@ -1,4 +1,7 @@
 package com.example.teachers;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,14 +10,16 @@ import java.util.stream.Collectors;
 
 public class ClassTeacher {
     String groupName;
-    List<Teacher> teachers = new ArrayList<>();
+    ObservableList<Teacher> teachers = FXCollections.observableArrayList();
     int maxTeachers;
 
     ClassTeacher(String groupName, int maxTeachers) {
         this.groupName = groupName;
         this.maxTeachers = maxTeachers;
     }
-
+    public ObservableList<Teacher> getTeachers(){
+        return teachers;
+    }
     void addTeacher(Teacher t) {
         if(teachers.size() >= maxTeachers) {
             System.out.println("Couldn't add teacher: " + t.getFullName() + " | Reason: Group full");

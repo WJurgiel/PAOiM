@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.AddTeacherFormController">
    <children>
       <VBox layoutX="14.0" layoutY="52.0" prefHeight="296.0" prefWidth="369.0" spacing="10.0">
@@ -76,7 +75,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="438.0" layoutY="157.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="131.0" text="Dodaj nauczyciela" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="438.0" layoutY="157.0" mnemonicParsing="false" onAction="#addExampleTeacher" prefHeight="86.0" prefWidth="131.0" text="Dodaj nauczyciela" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="19.0" />
          </font>

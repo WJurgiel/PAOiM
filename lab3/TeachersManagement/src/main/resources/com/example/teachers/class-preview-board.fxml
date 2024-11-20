@@ -7,21 +7,21 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.ClassPreviewBoardController">
    <children>
-      <TableView layoutX="14.0" layoutY="77.0" prefHeight="278.0" prefWidth="577.0">
+      <TableView fx:id="teachersList" layoutX="14.0" layoutY="77.0" prefHeight="278.0" prefWidth="577.0">
         <columns>
-          <TableColumn prefWidth="87.0" text="Imię" />
-          <TableColumn prefWidth="99.0" text="Nazwisko" />
-            <TableColumn prefWidth="112.0" text="Rok urodzenia" />
-            <TableColumn prefWidth="91.0" text="Pensja" />
-            <TableColumn text="Stan" />
-            <TableColumn prefWidth="107.0" />
+          <TableColumn fx:id="nameCol" prefWidth="127.0" text="Imię" />
+          <TableColumn fx:id="surnameCol" prefWidth="101.0" text="Nazwisko" />
+            <TableColumn fx:id="birthCol" prefWidth="127.0" text="Rok urodzenia" />
+            <TableColumn fx:id="salaryCol" prefWidth="99.0" text="Pensja" />
+            <TableColumn fx:id="condCol" prefWidth="122.0" text="Stan" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" />
         </columns>
       </TableView>
-      <TextField layoutX="214.0" layoutY="34.0" />
-      <Button layoutX="248.0" layoutY="361.0" mnemonicParsing="false" text="Add teacher" />
-      <ToggleButton layoutX="371.0" layoutY="34.0" mnemonicParsing="false" text="partial: off" />
+      <TextField alignment="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="search teacher" />
+      <Button layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTeacher" text="Add teacher" />
+      <ToggleButton layoutX="388.0" layoutY="34.0" mnemonicParsing="false" text="partial: off" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" text="&lt;-" />
    </children>
 </AnchorPane>

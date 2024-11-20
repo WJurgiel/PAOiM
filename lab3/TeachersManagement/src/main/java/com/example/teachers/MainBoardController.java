@@ -2,6 +2,7 @@ package com.example.teachers;
 
 import com.sun.jdi.ClassType;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -40,10 +41,12 @@ public class MainBoardController extends SceneChanger implements Initializable {
     private AnchorPane groupsPanel;
     @FXML
     private AnchorPane teachersPanel;
+
+    @FXML
+    private Button addClassBtn;
     private String[] classesOnStart = {"Nauczyciele sp2", "Nauczyciele 3LO", "Nauczyciele 4T"};
 
-    Teacher t1 = new Teacher("Karol", "Laudański", TeacherConditions.ABSENT, 1080, 3000 );
-    Teacher t2 = new Teacher("Melania", "Laudańska", TeacherConditions.DELEGATION, 1850, 4000 );
+
     ClassTeacher mathematicians1 = new ClassTeacher("Mathematicians", 10);
     @FXML
     public void logout(ActionEvent event) throws IOException {
@@ -88,6 +91,8 @@ public class MainBoardController extends SceneChanger implements Initializable {
             if(selectedClass == null) return;
 
             try{
+                ClassPreviewBoardController.currentClassID = classesList.getSelectionModel().getFocusedIndex();
+                ClassPreviewBoardController.currentGroup = groupList.getValue();
                 changeScene(event, "class-preview-board.fxml");
                 setStageTitle(selectedClass.getTheClassName() + "|" + groupList.getValue());
             }catch(Exception e){
@@ -129,14 +134,22 @@ public class MainBoardController extends SceneChanger implements Initializable {
         classNameColumn.setCellValueFactory(new PropertyValueFactory<>("theClassName"));
         classFillingColumn.setCellValueFactory(new PropertyValueFactory<>("filling"));
 
+        // the ChoiceBox and Tableview are getting Observable type that sends signal to update, everytime the content changes
         groupList.setItems(SharedData.getGroupList());
         classesList.setItems(SharedData.getClassesList());
 
+        // dynamically change content of tableview with listener, depending on chosen group
         groupList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 ObservableList<ClassTeacher> selectedClass = SharedData.getClassesInGroup().get(newValue);
                 classesList.setItems(selectedClass);
             }
+        });
+
+        // Set state of add class btn dynamically
+        addClassBtn.setDisable(SharedData.getGroupList().isEmpty());
+        SharedData.getGroupList().addListener((ListChangeListener<String>) change ->{
+            addClassBtn.setDisable(SharedData.getGroupList().isEmpty());
         });
     }
 }

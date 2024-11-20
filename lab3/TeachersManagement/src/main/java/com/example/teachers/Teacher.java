@@ -31,6 +31,15 @@ public class Teacher implements Comparable<Teacher> {
     public String getSurname(){
         return surname;
     }
+    public String getName(){
+        return name;
+    }
+    public Integer getYearOfBirth(){
+        return yearOfBirth;
+    }
+    public TeacherConditions getTeacherCondition(){
+        return teacherCondition;
+    }
     public void print(){
         System.out.println(name + " " + surname);
         System.out.println("Year of birth: " + yearOfBirth);
