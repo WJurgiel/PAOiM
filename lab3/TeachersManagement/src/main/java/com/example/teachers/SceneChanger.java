@@ -1,10 +1,12 @@
 package com.example.teachers;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.InputEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +20,12 @@ public abstract class SceneChanger {
 
     private Map<String, Parent> sceneCache = new HashMap<>();
 
-    public void changeScene(ActionEvent event, String scenePath) throws IOException {
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
+    public void changeScene(Event event, String scenePath) throws IOException {
+        if (event.getSource() instanceof Node) {
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        } else {
+            throw new IllegalArgumentException("Unsupported event type");
+        }
 
 
         if(sceneCache.containsKey(scenePath)) {

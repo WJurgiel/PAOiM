@@ -4,11 +4,15 @@ import com.sun.jdi.ClassType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
 
@@ -25,7 +29,7 @@ public class MainBoardController extends SceneChanger implements Initializable {
     @FXML
     public ChoiceBox<String> groupList;
     @FXML
-    public TableView classesList;
+    public TableView<ClassTeacher> classesList;
 
     @FXML
     private TableColumn<ClassTeacher, String> classNameColumn;
@@ -53,26 +57,86 @@ public class MainBoardController extends SceneChanger implements Initializable {
         dialog.setHeaderText("Insert name of the new group");
         dialog.setContentText("Name: ");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(s -> SharedData.getGroupList().add(s));
+        result.ifPresent(s -> SharedData.addGroup(s));
     }
     @FXML
     public void toggleTeachersPanel(ActionEvent event) throws IOException {
         teachersPanel.setOpacity(1);
         groupsPanel.setOpacity(0);
+        teachersPanel.setDisable(false);
+        groupsPanel.setDisable(true);
     }
     @FXML void toggleGroupsPanel(ActionEvent event) throws IOException {
         teachersPanel.setOpacity(0);
         groupsPanel.setOpacity(1);
+
+        teachersPanel.setDisable(true);
+        groupsPanel.setDisable(false);
+
+    }
+    @FXML
+    public void openSummaryScene(ActionEvent event) throws IOException {
+        changeScene(event, "condition-summary-board.fxml");
+        setStageTitle("Podsumowanie");
+    }
+    @FXML
+    public void openClassPreviewScene(MouseEvent event) throws IOException {
+        if(event.getClickCount() == 2){
+            ClassTeacher selectedClass = classesList.getSelectionModel().getSelectedItem();
+            System.out.println(selectedClass);
+
+            if(selectedClass == null) return;
+
+            try{
+                changeScene(event, "class-preview-board.fxml");
+                setStageTitle(selectedClass.getTheClassName() + "|" + groupList.getValue());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    @FXML
+    public void deleteClass(KeyEvent event){
+        if(event.getCode() == KeyCode.DELETE){
+            //modify here so it changes the SharedData element, possible kind of UpdateScene/updateTable method will become in handy
+            ObservableList<ClassTeacher> selectedItems = classesList.getSelectionModel().getSelectedItems();
+            classesList.getItems().removeAll(selectedItems);
+        }
+    }
+    @FXML
+    public void addClassToGroup(ActionEvent event) throws IOException {
+        TextInputDialog classAdderDialog = new TextInputDialog();
+        classAdderDialog.setTitle("Add Class");
+        classAdderDialog.setHeaderText("Insert name of the new class");
+        classAdderDialog.setContentText("Name: ");
+        Optional<String> nameResult = classAdderDialog.showAndWait();
+        nameResult.ifPresent(name ->{
+            classAdderDialog.setContentText("Max size: ");
+            Optional<String> sizeResult = classAdderDialog.showAndWait();
+
+            sizeResult.ifPresent(size ->{
+                try{
+                    int maxSize = Integer.parseInt(size);
+                    SharedData.addClassToGroup(groupList.getValue(), new ClassTeacher(name, maxSize));
+                }catch(NumberFormatException e){
+                    System.out.println(e);
+                }
+            });
+        });
     }
     @Override
     public void initialize(URL args0, ResourceBundle args1) {
-        groupList.setItems(SharedData.getGroupList());
-        mathematicians1.addTeacher(t1);
-        mathematicians1.addTeacher(t2);
-
         classNameColumn.setCellValueFactory(new PropertyValueFactory<>("theClassName"));
         classFillingColumn.setCellValueFactory(new PropertyValueFactory<>("filling"));
 
-        classesList.setItems(FXCollections.observableArrayList(mathematicians1));
+        groupList.setItems(SharedData.getGroupList());
+        classesList.setItems(SharedData.getClassesList());
+
+        groupList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                ObservableList<ClassTeacher> selectedClass = SharedData.getClassesInGroup().get(newValue);
+                classesList.setItems(selectedClass);
+            }
+        });
     }
 }
