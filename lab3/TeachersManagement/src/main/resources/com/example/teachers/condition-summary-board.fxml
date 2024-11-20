@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.ConditionSummaryBoardController">
+   <children>
+      <VBox layoutX="20.0" layoutY="29.0" prefHeight="345.0" prefWidth="140.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="77.0" prefWidth="141.0" text="Obecni: 0" wrapText="true">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Nauczyciel" />
+                <TableColumn prefWidth="75.0" text="klasa" />
+              </columns>
+            </TableView>
+            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Więcej...">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="160.0" layoutY="28.0" prefHeight="345.0" prefWidth="140.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="77.0" prefWidth="141.0" text="Nieobecni: 0" wrapText="true">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Nauczyciel" />
+                  <TableColumn prefWidth="75.0" text="klasa" />
+               </columns>
+            </TableView>
+            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Więcej...">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="300.0" layoutY="28.0" prefHeight="345.0" prefWidth="140.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="77.0" prefWidth="141.0" text="Chory: 0" wrapText="true">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Nauczyciel" />
+                  <TableColumn prefWidth="75.0" text="klasa" />
+               </columns>
+            </TableView>
+            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Więcej...">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="440.0" layoutY="27.0" prefHeight="345.0" prefWidth="140.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="77.0" prefWidth="141.0" text="Delegacja: 0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Nauczyciel" />
+                  <TableColumn prefWidth="75.0" text="klasa" />
+               </columns>
+            </TableView>
+            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Więcej...">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
