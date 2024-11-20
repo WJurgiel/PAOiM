@@ -29,7 +29,7 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="108.0" prefWidth="323.0" text="Podsumowanie">
+            <Button mnemonicParsing="false" onAction="#openSummaryScene" prefHeight="108.0" prefWidth="323.0" text="Podsumowanie">
                <font>
                   <Font size="36.0" />
                </font>
@@ -41,7 +41,7 @@
             </Button>
          </children>
       </VBox>
-      <AnchorPane fx:id="groupsPanel" layoutX="302.0" layoutY="-2.0" opacity="0.0" prefHeight="608.0" prefWidth="619.0">
+      <AnchorPane fx:id="groupsPanel" layoutX="302.0" layoutY="-2.0" prefHeight="608.0" prefWidth="619.0">
          <children>
             <Label alignment="CENTER" layoutX="-18.0" layoutY="58.0" prefHeight="25.0" prefWidth="137.0" text="Grupa" textAlignment="CENTER">
                <font>
@@ -49,13 +49,13 @@
                </font>
             </Label>
             <ChoiceBox fx:id="groupList" layoutX="112.0" layoutY="59.0" prefHeight="25.0" prefWidth="438.0" />
-            <TableView fx:id="classesList" layoutX="50.0" layoutY="127.0" prefHeight="442.0" prefWidth="519.0">
+            <TableView fx:id="classesList" layoutX="50.0" layoutY="127.0" onKeyPressed="#deleteClass" onMouseClicked="#openClassPreviewScene" prefHeight="442.0" prefWidth="519.0">
               <columns>
                 <TableColumn fx:id="classNameColumn" prefWidth="287.0" text="Nazwa" />
                 <TableColumn fx:id="classFillingColumn" prefWidth="288.0" text="Zapełnienie" />
               </columns>
             </TableView>
-            <Button layoutX="237.0" layoutY="575.0" mnemonicParsing="false" text="Add class to group">
+            <Button layoutX="237.0" layoutY="575.0" mnemonicParsing="false" onAction="#addClassToGroup" text="Add class to group">
                <font>
                   <Font size="15.0" />
                </font>
@@ -67,9 +67,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="teachersPanel" layoutX="312.0" prefHeight="606.0" prefWidth="619.0">
+      <AnchorPane fx:id="teachersPanel" layoutX="312.0" opacity="0.0" prefHeight="606.0" prefWidth="619.0">
          <children>
-            <TableView fx:id="classesList1" layoutX="17.0" layoutY="21.0" prefHeight="572.0" prefWidth="589.0">
+            <TableView layoutX="17.0" layoutY="21.0" prefHeight="572.0" prefWidth="589.0">
                <columns>
                   <TableColumn fx:id="classNameColumn1" prefWidth="83.0" text=" Imię" />
                   <TableColumn fx:id="classFillingColumn1" prefWidth="108.0" text="Nazwisko" />
