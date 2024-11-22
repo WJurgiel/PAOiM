@@ -60,7 +60,12 @@ public class MainBoardController extends SceneChanger implements Initializable {
         dialog.setHeaderText("Insert name of the new group");
         dialog.setContentText("Name: ");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(s -> SharedData.addGroup(s));
+        result.ifPresent(s -> {
+            SharedData.addGroup(s);
+            groupList.setValue(s);
+        });
+
+
     }
     @FXML
     public void toggleTeachersPanel(ActionEvent event) throws IOException {

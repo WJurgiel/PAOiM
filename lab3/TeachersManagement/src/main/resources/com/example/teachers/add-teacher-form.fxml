@@ -40,7 +40,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="211.0" />
+                  <TextField fx:id="birthTF" prefHeight="30.0" prefWidth="211.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -60,7 +60,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="38.0" prefWidth="208.0" />
+                  <ChoiceBox fx:id="condCB" prefHeight="38.0" prefWidth="208.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -70,7 +70,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="38.0" prefWidth="208.0" />
+                  <ChoiceBox fx:id="classCB" prefHeight="38.0" prefWidth="208.0" />
                </children>
             </HBox>
          </children>
