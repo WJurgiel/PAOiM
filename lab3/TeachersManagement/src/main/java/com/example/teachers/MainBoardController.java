@@ -112,6 +112,7 @@ public class MainBoardController extends SceneChanger implements Initializable {
             ObservableList<ClassTeacher> selectedItems = classesList.getSelectionModel().getSelectedItems();
             classesList.getItems().removeAll(selectedItems);
         }
+
     }
     @FXML
     public void addClassToGroup(ActionEvent event) throws IOException {

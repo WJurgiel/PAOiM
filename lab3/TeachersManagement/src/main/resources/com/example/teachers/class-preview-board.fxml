@@ -18,9 +18,9 @@
             <TableColumn minWidth="0.0" prefWidth="0.0" />
         </columns>
       </TableView>
-      <TextField fx:id="searchTeacher" alignment="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="search teacher" />
+      <TextField fx:id="searchTeacherTF" alignment="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="search teacher" />
       <Button layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTeacher" text="Add teacher" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" text="&lt;-" />
-      <Button layoutX="388.0" layoutY="34.0" mnemonicParsing="false" text="Search" />
+      <Button layoutX="388.0" layoutY="34.0" mnemonicParsing="false" onAction="#SearchTeachers" text="Search" />
    </children>
 </AnchorPane>

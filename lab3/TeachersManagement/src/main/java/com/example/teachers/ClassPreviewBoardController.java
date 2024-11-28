@@ -30,7 +30,7 @@ public class ClassPreviewBoardController extends SceneChanger implements Initial
     @FXML public TableColumn<Teacher, String> birthCol;
     @FXML public TableColumn<Teacher, String> salaryCol;
     @FXML public TableColumn<Teacher, String> condCol;
-    @FXML public TextField searchTeacher;
+    @FXML public TextField searchTeacherTF;
 
     @FXML
     public void goBack(ActionEvent event) throws IOException {
@@ -61,6 +61,14 @@ public class ClassPreviewBoardController extends SceneChanger implements Initial
             Integer selectedIndex = teachersList.getSelectionModel().getSelectedIndex();
             currentTeacher = selectedIndex;
             changeScene(event, "EditTeacher.fxml");
+        }
+    }
+    @FXML
+    public void SearchTeachers(){
+        if(searchTeacherTF.getText().equals("")) {
+            teachersList.setItems(SharedData.getClassesInGroup().get(currentGroup).get(currentClassID).getTeachers());
+        }else{
+            teachersList.setItems(SharedData.getClassesInGroup().get(currentGroup).get(currentClassID).searchTeacher(searchTeacherTF.getText()));
         }
     }
     @Override

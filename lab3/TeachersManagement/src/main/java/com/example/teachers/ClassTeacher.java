@@ -66,6 +66,15 @@ public class ClassTeacher {
             }
         }
     }
+    ObservableList<Teacher> searchTeacher(String fragment){
+        ObservableList<Teacher> teachersToReturn = FXCollections.observableArrayList();
+        for(Teacher t: teachers){
+            if(t.getFullName().toLowerCase().contains(fragment.toLowerCase())){
+                teachersToReturn.add(t);
+            }
+        }
+        return teachersToReturn;
+    }
     void countByCondition(TeacherConditions con){
         int counter = 0;
         for(Teacher t : teachers){
