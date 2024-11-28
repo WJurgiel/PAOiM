@@ -19,6 +19,9 @@ public class Teacher implements Comparable<Teacher> {
     public void setSalary(double x){
         this.salary = x;
     }
+    public void addSalary(double x){
+        this.salary += x;
+    }
     public TeacherConditions getCondition(){
         return teacherCondition;
     }
@@ -30,6 +33,15 @@ public class Teacher implements Comparable<Teacher> {
     }
     public String getSurname(){
         return surname;
+    }
+    public String getName(){
+        return name;
+    }
+    public Integer getYearOfBirth(){
+        return yearOfBirth;
+    }
+    public TeacherConditions getTeacherCondition(){
+        return teacherCondition;
     }
     public void print(){
         System.out.println(name + " " + surname);

@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.AddTeacherFormController">
    <children>
-      <VBox layoutX="14.0" layoutY="52.0" prefHeight="296.0" prefWidth="369.0" spacing="10.0">
+      <VBox layoutX="14.0" layoutY="81.0" prefHeight="239.0" prefWidth="369.0" spacing="10.0">
          <children>
             <HBox prefHeight="38.0" prefWidth="277.0">
                <children>
@@ -21,7 +20,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="211.0" />
+                  <TextField fx:id="nameTF" prefHeight="30.0" prefWidth="211.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -31,7 +30,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="211.0" />
+                  <TextField fx:id="surnameTF" prefHeight="30.0" prefWidth="211.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -41,7 +40,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="211.0" />
+                  <TextField fx:id="birthTF" prefHeight="30.0" prefWidth="211.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -51,7 +50,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="211.0" />
+                  <TextField fx:id="salaryTF" prefHeight="30.0" prefWidth="211.0" promptText="podaj liczbe" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="277.0">
@@ -61,22 +60,12 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="38.0" prefWidth="208.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="38.0" prefWidth="277.0">
-               <children>
-                  <Label prefHeight="31.0" prefWidth="162.0" text="*Klasa:">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox prefHeight="38.0" prefWidth="208.0" />
+                  <ChoiceBox fx:id="condCB" prefHeight="38.0" prefWidth="208.0" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="438.0" layoutY="157.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="131.0" text="Dodaj nauczyciela" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="438.0" layoutY="157.0" mnemonicParsing="false" onAction="#addExampleTeacher" prefHeight="86.0" prefWidth="131.0" text="Dodaj nauczyciela" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="19.0" />
          </font>
