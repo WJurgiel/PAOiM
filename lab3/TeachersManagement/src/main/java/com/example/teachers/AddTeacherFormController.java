@@ -60,6 +60,11 @@ public class AddTeacherFormController extends SceneChanger implements Initializa
         alert.setTitle("Error");
         alert.setHeaderText("There's no more room left in this class");
         alert.showAndWait();
+
+    }
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        changeScene(event, "class-preview-board.fxml");
     }
     private void displayWrongTeacher(){
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -9,6 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -31,7 +32,6 @@ public class MainBoardController extends SceneChanger implements Initializable {
     public ChoiceBox<String> groupList;
     @FXML
     public TableView<ClassTeacher> classesList;
-
     @FXML
     private TableColumn<ClassTeacher, String> classNameColumn;
     @FXML
@@ -41,9 +41,15 @@ public class MainBoardController extends SceneChanger implements Initializable {
     private AnchorPane groupsPanel;
     @FXML
     private AnchorPane teachersPanel;
+    @FXML
+    private AnchorPane statesPanel;
 
     @FXML
     private Button addClassBtn;
+
+    @FXML
+    PieChart pieChart;
+
     private String[] classesOnStart = {"Nauczyciele sp2", "Nauczyciele 3LO", "Nauczyciele 4T"};
 
 
@@ -71,16 +77,33 @@ public class MainBoardController extends SceneChanger implements Initializable {
     public void toggleTeachersPanel(ActionEvent event) throws IOException {
         teachersPanel.setOpacity(1);
         groupsPanel.setOpacity(0);
+        statesPanel.setOpacity(0);
+
         teachersPanel.setDisable(false);
         groupsPanel.setDisable(true);
+        statesPanel.setDisable(true);
     }
     @FXML void toggleGroupsPanel(ActionEvent event) throws IOException {
         teachersPanel.setOpacity(0);
+        statesPanel.setOpacity(0);
         groupsPanel.setOpacity(1);
 
         teachersPanel.setDisable(true);
         groupsPanel.setDisable(false);
+        statesPanel.setDisable(true);
+    }
+    @FXML void toggleSummaryPanel(ActionEvent event) throws IOException {
+        teachersPanel.setOpacity(0);
+        statesPanel.setOpacity(1);
+        groupsPanel.setOpacity(0);
 
+        teachersPanel.setDisable(true);
+        groupsPanel.setDisable(true);
+        statesPanel.setDisable(false);
+    }
+    @FXML
+    private void updateSummary(ActionEvent event) throws IOException {
+        // for every teacher that exist,
     }
     @FXML
     public void openSummaryScene(ActionEvent event) throws IOException {
@@ -157,5 +180,13 @@ public class MainBoardController extends SceneChanger implements Initializable {
         SharedData.getGroupList().addListener((ListChangeListener<String>) change ->{
             addClassBtn.setDisable(SharedData.getGroupList().isEmpty());
         });
+
+        //Piechart
+        ObservableList<PieChart.Data> data = TeacherCondChart.getTeacherConditionData();
+
+        pieChart.setData(data);
+        pieChart.setTitle("Summary");
+        pieChart.setLegendVisible(true);
+        pieChart.setLabelsVisible(true);
     }
 }
