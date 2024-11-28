@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 
 
 public class MainBoardController extends SceneChanger implements Initializable {
-
-
     @FXML
     public ChoiceBox<String> groupList;
     @FXML
@@ -39,8 +37,7 @@ public class MainBoardController extends SceneChanger implements Initializable {
 
     @FXML
     private AnchorPane groupsPanel;
-    @FXML
-    private AnchorPane teachersPanel;
+
     @FXML
     private AnchorPane statesPanel;
 
@@ -50,10 +47,6 @@ public class MainBoardController extends SceneChanger implements Initializable {
     @FXML
     PieChart pieChart;
 
-    private String[] classesOnStart = {"Nauczyciele sp2", "Nauczyciele 3LO", "Nauczyciele 4T"};
-
-
-    ClassTeacher mathematicians1 = new ClassTeacher("Mathematicians", 10);
     @FXML
     public void logout(ActionEvent event) throws IOException {
         changeScene(event, "login-board.fxml");
@@ -70,45 +63,28 @@ public class MainBoardController extends SceneChanger implements Initializable {
             SharedData.addGroup(s);
             groupList.setValue(s);
         });
-
-
     }
     @FXML
     public void toggleTeachersPanel(ActionEvent event) throws IOException {
-        teachersPanel.setOpacity(1);
         groupsPanel.setOpacity(0);
         statesPanel.setOpacity(0);
 
-        teachersPanel.setDisable(false);
         groupsPanel.setDisable(true);
         statesPanel.setDisable(true);
     }
     @FXML void toggleGroupsPanel(ActionEvent event) throws IOException {
-        teachersPanel.setOpacity(0);
         statesPanel.setOpacity(0);
         groupsPanel.setOpacity(1);
 
-        teachersPanel.setDisable(true);
         groupsPanel.setDisable(false);
         statesPanel.setDisable(true);
     }
     @FXML void toggleSummaryPanel(ActionEvent event) throws IOException {
-        teachersPanel.setOpacity(0);
         statesPanel.setOpacity(1);
         groupsPanel.setOpacity(0);
 
-        teachersPanel.setDisable(true);
         groupsPanel.setDisable(true);
         statesPanel.setDisable(false);
-    }
-    @FXML
-    private void updateSummary(ActionEvent event) throws IOException {
-        // for every teacher that exist,
-    }
-    @FXML
-    public void openSummaryScene(ActionEvent event) throws IOException {
-        changeScene(event, "condition-summary-board.fxml");
-        setStageTitle("Podsumowanie");
     }
     @FXML
     public void openClassPreviewScene(MouseEvent event) throws IOException {

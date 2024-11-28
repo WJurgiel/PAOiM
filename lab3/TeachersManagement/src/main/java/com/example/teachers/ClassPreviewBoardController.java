@@ -60,7 +60,7 @@ public class ClassPreviewBoardController extends SceneChanger implements Initial
         if(event.getClickCount() == 2){
             Integer selectedIndex = teachersList.getSelectionModel().getSelectedIndex();
             currentTeacher = selectedIndex;
-            changeScene(event, "EditTeacher.fxml");
+            changeScene(event, "edit-teacher.fxml");
         }
     }
     @FXML
