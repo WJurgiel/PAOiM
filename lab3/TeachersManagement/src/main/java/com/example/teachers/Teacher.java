@@ -19,6 +19,9 @@ public class Teacher implements Comparable<Teacher> {
     public void setSalary(double x){
         this.salary = x;
     }
+    public void addSalary(double x){
+        this.salary += x;
+    }
     public TeacherConditions getCondition(){
         return teacherCondition;
     }

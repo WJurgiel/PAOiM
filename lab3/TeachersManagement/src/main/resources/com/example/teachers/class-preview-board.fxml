@@ -4,12 +4,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.ClassPreviewBoardController">
    <children>
-      <TableView fx:id="teachersList" layoutX="14.0" layoutY="77.0" prefHeight="278.0" prefWidth="577.0">
+      <TableView fx:id="teachersList" layoutX="14.0" layoutY="77.0" onKeyPressed="#deleteTeacher" onMouseClicked="#modifyTeacher" prefHeight="278.0" prefWidth="577.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="127.0" text="Imię" />
           <TableColumn fx:id="surnameCol" prefWidth="101.0" text="Nazwisko" />
@@ -19,9 +18,9 @@
             <TableColumn minWidth="0.0" prefWidth="0.0" />
         </columns>
       </TableView>
-      <TextField alignment="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="search teacher" />
+      <TextField fx:id="searchTeacher" alignment="CENTER" layoutX="196.0" layoutY="34.0" prefHeight="25.0" prefWidth="179.0" promptText="search teacher" />
       <Button layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTeacher" text="Add teacher" />
-      <ToggleButton layoutX="388.0" layoutY="34.0" mnemonicParsing="false" text="partial: off" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" text="&lt;-" />
+      <Button layoutX="388.0" layoutY="34.0" mnemonicParsing="false" text="Search" />
    </children>
 </AnchorPane>
