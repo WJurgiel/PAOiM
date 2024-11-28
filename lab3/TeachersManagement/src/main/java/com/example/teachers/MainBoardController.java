@@ -9,6 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -25,13 +26,10 @@ import java.util.ResourceBundle;
 
 
 public class MainBoardController extends SceneChanger implements Initializable {
-
-
     @FXML
     public ChoiceBox<String> groupList;
     @FXML
     public TableView<ClassTeacher> classesList;
-
     @FXML
     private TableColumn<ClassTeacher, String> classNameColumn;
     @FXML
@@ -39,15 +37,16 @@ public class MainBoardController extends SceneChanger implements Initializable {
 
     @FXML
     private AnchorPane groupsPanel;
+
     @FXML
-    private AnchorPane teachersPanel;
+    private AnchorPane statesPanel;
 
     @FXML
     private Button addClassBtn;
-    private String[] classesOnStart = {"Nauczyciele sp2", "Nauczyciele 3LO", "Nauczyciele 4T"};
 
+    @FXML
+    PieChart pieChart;
 
-    ClassTeacher mathematicians1 = new ClassTeacher("Mathematicians", 10);
     @FXML
     public void logout(ActionEvent event) throws IOException {
         changeScene(event, "login-board.fxml");
@@ -64,28 +63,28 @@ public class MainBoardController extends SceneChanger implements Initializable {
             SharedData.addGroup(s);
             groupList.setValue(s);
         });
-
-
     }
     @FXML
     public void toggleTeachersPanel(ActionEvent event) throws IOException {
-        teachersPanel.setOpacity(1);
         groupsPanel.setOpacity(0);
-        teachersPanel.setDisable(false);
+        statesPanel.setOpacity(0);
+
         groupsPanel.setDisable(true);
+        statesPanel.setDisable(true);
     }
     @FXML void toggleGroupsPanel(ActionEvent event) throws IOException {
-        teachersPanel.setOpacity(0);
+        statesPanel.setOpacity(0);
         groupsPanel.setOpacity(1);
 
-        teachersPanel.setDisable(true);
         groupsPanel.setDisable(false);
-
+        statesPanel.setDisable(true);
     }
-    @FXML
-    public void openSummaryScene(ActionEvent event) throws IOException {
-        changeScene(event, "condition-summary-board.fxml");
-        setStageTitle("Podsumowanie");
+    @FXML void toggleSummaryPanel(ActionEvent event) throws IOException {
+        statesPanel.setOpacity(1);
+        groupsPanel.setOpacity(0);
+
+        groupsPanel.setDisable(true);
+        statesPanel.setDisable(false);
     }
     @FXML
     public void openClassPreviewScene(MouseEvent event) throws IOException {
@@ -157,5 +156,13 @@ public class MainBoardController extends SceneChanger implements Initializable {
         SharedData.getGroupList().addListener((ListChangeListener<String>) change ->{
             addClassBtn.setDisable(SharedData.getGroupList().isEmpty());
         });
+
+        //Piechart
+        ObservableList<PieChart.Data> data = TeacherCondChart.getTeacherConditionData();
+
+        pieChart.setData(data);
+        pieChart.setTitle("Summary");
+        pieChart.setLegendVisible(true);
+        pieChart.setLabelsVisible(true);
     }
 }

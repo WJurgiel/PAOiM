@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teachers.MainBoardController">
    <children>
-      <VBox prefHeight="600.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="619.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="619.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="54.0" text="| | |">
-               <font>
-                  <Font name="ArtifaktElement-Regular" size="17.0" />
-               </font>
-            </ToggleButton>
-            <Button mnemonicParsing="false" onAction="#toggleTeachersPanel" prefHeight="109.0" prefWidth="326.0" text="Nauczyciele">
+            <Button mnemonicParsing="false" onAction="#toggleGroupsPanel" prefHeight="141.0" prefWidth="312.0" text="Grupy">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#toggleGroupsPanel" prefHeight="109.0" prefWidth="324.0" text="Grupy">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#openSummaryScene" prefHeight="108.0" prefWidth="323.0" text="Podsumowanie">
+            <Button mnemonicParsing="false" onAction="#toggleSummaryPanel" prefHeight="172.0" prefWidth="312.0" text="Podsumowanie">
                <font>
                   <Font size="36.0" />
                </font>
@@ -53,6 +43,11 @@
                   <TableColumn prefWidth="106.0" text="Klasa" />
                </columns>
             </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="statesPanel" layoutX="312.0" layoutY="8.0" opacity="0.0" prefHeight="608.0" prefWidth="619.0">
+         <children>
+            <PieChart fx:id="pieChart" prefHeight="608.0" prefWidth="619.0" title="Piechart" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="groupsPanel" layoutX="302.0" layoutY="-2.0" prefHeight="608.0" prefWidth="619.0">
