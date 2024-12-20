@@ -1,7 +1,10 @@
 import entity.Class;
+import entity.Rate;
 import entity.Teacher;
 import jakarta.persistence.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,7 +86,10 @@ public class DatabaseController {
             }
         }
     }
-    public void ReturnTeachersForGroup(int groupID){
+    public void ReturnTeachersForGroup(){
+        System.out.print("group ID: ");
+        int groupID = scanner.nextInt();
+        scanner.nextLine();
         try{
             transaction.begin();
             System.out.println("Displaying teachers for group with ID: " + groupID);
@@ -119,7 +125,9 @@ public class DatabaseController {
             }
         }
     }
-    public void FindTeacher(String surnameFrag){
+    public void FindTeacher(){
+        System.out.print("Fragment: ");
+        String surnameFrag = scanner.nextLine();
         try{
             transaction.begin();
             System.out.println("Displaying teachers with surname pattern: " + surnameFrag);
@@ -139,7 +147,10 @@ public class DatabaseController {
             }
         }
     }
-    public void FindTeacherBornAfter(int year){
+    public void FindTeacherBornAfter(){
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
         try{
             transaction.begin();
             System.out.println("Displaying teachers born after: " + year);
@@ -158,7 +169,10 @@ public class DatabaseController {
             }
         }
     }
-    public void FindTeacherWithSalaryLowerThan(int salary){
+    public void FindTeacherWithSalaryLowerThan(){
+        System.out.print("Salary: ");
+        int salary = scanner.nextInt();
+        scanner.nextLine();
         try{
             transaction.begin();
             System.out.println("Displaying teachers that salary is lower than: " + salary);
@@ -276,6 +290,84 @@ public class DatabaseController {
                 transaction.rollback();
             }
         }
+    }
+
+    public void AddToSalary(){
+        System.out.print("Add salary to teacher with ID: ");
+        int teacherID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Salary amount to add  (yes, you can also subtract the salary): ");
+        int addition = scanner.nextInt();
+        scanner.nextLine();
+        try{
+            transaction.begin();
+            System.out.println("Added " + addition + " to teacher with ID: " + teacherID);
+            Query addSalary = entityManager.createNativeQuery(
+                    "UPDATE teachers SET Salary = Salary + :addition WHERE ID = :teacherID");
+            addSalary.setParameter("addition", addition);
+            addSalary.setParameter("teacherID", teacherID);
+            addSalary.executeUpdate();
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void ExportDatabaseToCSV(){
+        // Wykonanie zapytania i pobranie listy nauczycieli
+        List<Teacher> teachers = getEntities(Teacher.class);
+        List<Class> classes = getEntities(Class.class);
+        List<Rate> rates = getEntities(Rate.class);
+
+        // Zapis do pliku CSV
+        try (FileWriter writer = new FileWriter("database_export.csv")) {
+            writer.write("ID;Name;Surname;Status;Salary;BirthYear;GroupID\n");
+
+            // Zapis każdego nauczyciela do pliku
+            for (Teacher teacher : teachers) {
+                writer.write(String.format("%d;%s;%s;%s;%d;%d;%s\n",
+                        teacher.getId(),
+                        teacher.getName(),
+                        teacher.getSurname(),
+                        teacher.getStatus(),
+                        teacher.getSalary(),
+                        teacher.getBirthYear(),
+                        teacher.getGroupID()));
+            }
+
+            writer.write("\n");
+            writer.write("Groups:\n");
+            writer.write("ID;class name;max teachers\n");
+            for(Class c : classes){
+                writer.write(String.format("%d;%s;%d\n",
+                        c.getId(), c.getName(), c.getMaxTeachers()));
+            }
+
+            writer.write("\n");
+            writer.write("Rates:\n");
+            writer.write("ID;value;group ID; comment\n");
+            for(Rate r : rates){
+                writer.write(String.format("%d;%d; %s;%s\n",
+                        r.getId(),r.getValue(), r.getGroupID(), r.getComment()));
+            }
+            System.out.println("Databases exported to database_export.csv");
+        }catch (IOException e) {
+            System.out.println("Error writing to CSV: " + e.getMessage());
+        }
+    }
+    public <T> List<T> getEntities(java.lang.Class<T> entityClass) {
+        Query query;
+        if (entityClass.equals(Teacher.class)) {
+            query = entityManager.createNativeQuery("SELECT * FROM teachers", entityClass);
+        } else if (entityClass.equals(Class.class)) {
+            query = entityManager.createNativeQuery("SELECT * FROM classes", entityClass);
+        }else{
+            query = entityManager.createNativeQuery("SELECT * FROM rate", entityClass);
+        }
+        return query.getResultList();
     }
     public void Close(){
         if (entityManager.isOpen()) {

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Teacher {
     @Override
     public String toString() {
-        return name + " " + surname + " " + status + " " + birthYear + " " + salary + " - " + getGroupID().getName();
+        return "[ " + id + " ] " + name + " " + surname + " " + status + " " + birthYear + " " + salary + " - " + getGroupID().getName();
     }
 
     @Id
