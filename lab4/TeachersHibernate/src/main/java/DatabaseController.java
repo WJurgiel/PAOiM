@@ -3,6 +3,7 @@ import entity.Teacher;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class DatabaseController {
     private static DatabaseController instance;
@@ -10,10 +11,12 @@ public class DatabaseController {
     private EntityManager entityManager;
     private EntityTransaction transaction;
 
+    private Scanner scanner;
     private DatabaseController() {
         entityManagerFactory = Persistence.createEntityManagerFactory("default");
         entityManager = entityManagerFactory.createEntityManager();
         transaction = entityManager.getTransaction();
+        scanner = new Scanner(System.in);
     }
     public static DatabaseController Instance() {
         if (instance == null) {
@@ -174,9 +177,106 @@ public class DatabaseController {
             }
         }
     }
-    public void AddTeacher(){}
-    public void AddGroup(){}
-    public void GiveRating(){}
+    public void AddTeacher(){
+        System.out.print("New teacher name: ");
+        String name = scanner.nextLine();
+        System.out.print("New teacher surname: ");
+        String surname = scanner.nextLine();
+        System.out.format("New teacher status: 0 - Present, 1 - Delegation, 2 - Sick, 3 - Absent");
+        int iStatus  = scanner.nextInt();
+        scanner.nextLine();
+        String status = (iStatus == 0) ? "Present" : (iStatus == 1) ? "Delegation" : (iStatus == 2) ? "Sick" : "Absent";
+        System.out.print("New teacher salary (Remember that teacher has to earn more than minimum wage): ");
+        int salary = scanner.nextInt(); // it's not checking the salary in code, because i want to present the trigger effect in database
+        System.out.print("New teacher birthYear (Remember that teacher has to be older than 18): ");
+        int birthYear = scanner.nextInt(); // same thing here
+        System.out.print("Assign teacher to class (give proper ID): ");
+        int classID = scanner.nextInt();
+
+        try{
+            transaction.begin();
+            System.out.println("New teacher added: ");
+            Query addTeacher = entityManager.createNativeQuery(
+                    "INSERT INTO teachers (Name, Surname, Status, Salary, BirthYear, groupID) VALUES (:name, :surname, :status, :salary, :birthYear, :groupID)");
+
+            addTeacher.setParameter("name", name);
+            addTeacher.setParameter("surname", surname);
+            addTeacher.setParameter("status", status);
+            addTeacher.setParameter("salary", salary);
+            addTeacher.setParameter("birthYear", birthYear);
+            addTeacher.setParameter("groupID", classID);
+
+            addTeacher.executeUpdate();
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void AddGroup(){
+        System.out.println("New group name: ");
+        String name = scanner.nextLine();
+        if(name.isEmpty()) {
+            System.out.println("The group has to have a name");
+            return;
+        }
+        System.out.print("Max size:");
+        int maxSize = scanner.nextInt();
+        if(maxSize <= 0) {
+            System.out.println("Max size cannot be negative or zero");
+            return;
+        }
+        scanner.nextLine();
+        try{
+            transaction.begin();
+            System.out.println("New group added: ");
+            Query addGroup = entityManager.createNativeQuery(
+                    "INSERT INTO classes (Name, max_teachers) VALUES (:name, :maxSize)");
+            addGroup.setParameter("name", name);
+            addGroup.setParameter("maxSize", maxSize);
+            addGroup.executeUpdate();
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+
+
+    }
+    public void GiveRating(){
+        System.out.print("Giving a rate to group: ");
+        int groupID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Rate [0-6]: ");
+        int rating = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Your comment: ");
+        String comment = scanner.nextLine();
+        try{
+            transaction.begin();
+            System.out.println("New rate added for group with ID:  " + groupID);
+            Query addRate = entityManager.createNativeQuery(
+                    "INSERT INTO rate (value, groupid, comment) VALUES (:value, :groupID, :comment)");
+            addRate.setParameter("value", rating);
+            addRate.setParameter("groupID", groupID);
+            addRate.setParameter("comment", comment);
+
+            addRate.executeUpdate();
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
     public void Close(){
         if (entityManager.isOpen()) {
             entityManager.close();

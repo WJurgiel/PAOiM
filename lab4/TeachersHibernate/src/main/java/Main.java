@@ -9,11 +9,18 @@ public class Main {
 //        db.CountTeachers();
 //        db.ReturnAllTeachers();
 //        db.ReturnTeachersForGroup(1);
-//        db.ReturnAllGroups();
+        db.ReturnAllGroups();
 //        db.SortTeachersBySalary();
 //        db.FindTeacher("Mar");
 //        db.FindTeacherBornAfter(2000);
 //        db.FindTeacherWithSalaryLowerThan(3000);
+//        db.AddTeacher();
+//        db.AddGroup();
+        db.GiveRating();
+
+        db.ReturnAllGroups();
         db.Close();
+
+
     }
 }
