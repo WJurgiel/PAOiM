@@ -10,7 +10,10 @@ public class Main {
 //        db.ReturnAllTeachers();
 //        db.ReturnTeachersForGroup(1);
 //        db.ReturnAllGroups();
-        db.SortTeachersBySalary();
+//        db.SortTeachersBySalary();
+//        db.FindTeacher("Mar");
+//        db.FindTeacherBornAfter(2000);
+//        db.FindTeacherWithSalaryLowerThan(3000);
         db.Close();
     }
 }

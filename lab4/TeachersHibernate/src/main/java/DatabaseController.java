@@ -99,9 +99,9 @@ public class DatabaseController {
             }
         }
     }
-//    public void ReturnTeacherSalaryGreater(int salary){}
     public void SortTeachersBySalary(){
         try{
+            System.out.println("Displaying teachers by salary (descending)");
             transaction.begin();
             Query getTeachersBySalary = entityManager.createNativeQuery("SELECT * FROM teachers ORDER BY Salary DESC", Teacher.class);
             for(Teacher teacher : (List<Teacher>) getTeachersBySalary.getResultList()){
@@ -116,6 +116,67 @@ public class DatabaseController {
             }
         }
     }
+    public void FindTeacher(String surnameFrag){
+        try{
+            transaction.begin();
+            System.out.println("Displaying teachers with surname pattern: " + surnameFrag);
+            String searchParam = "%" +surnameFrag.toLowerCase() + "%";
+            Query findTeacherWithPatter = entityManager.createNativeQuery("SELECT * FROM teachers WHERE LOWER(Surname) LIKE :surParam OR LOWER(Name) LIKE :surParam", Teacher.class);
+            findTeacherWithPatter.setParameter("surParam", searchParam);
+
+            for(Teacher teacher : (List<Teacher>) findTeacherWithPatter.getResultList()){
+                System.out.println(teacher);
+            }
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void FindTeacherBornAfter(int year){
+        try{
+            transaction.begin();
+            System.out.println("Displaying teachers born after: " + year);
+            Query findTeacherWithPatter = entityManager.createNativeQuery("SELECT * FROM teachers WHERE BirthYear > :birthYear",Teacher.class);
+            findTeacherWithPatter.setParameter("birthYear", year);
+
+            for(Teacher teacher : (List<Teacher>) findTeacherWithPatter.getResultList()){
+                System.out.println(teacher);
+            }
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void FindTeacherWithSalaryLowerThan(int salary){
+        try{
+            transaction.begin();
+            System.out.println("Displaying teachers that salary is lower than: " + salary);
+            Query findTeacherWithPatter = entityManager.createNativeQuery("SELECT * FROM teachers WHERE teachers.Salary < :teacherSalary",Teacher.class);
+            findTeacherWithPatter.setParameter("teacherSalary", salary);
+
+            for(Teacher teacher : (List<Teacher>) findTeacherWithPatter.getResultList()){
+                System.out.println(teacher);
+            }
+            transaction.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void AddTeacher(){}
+    public void AddGroup(){}
+    public void GiveRating(){}
     public void Close(){
         if (entityManager.isOpen()) {
             entityManager.close();
