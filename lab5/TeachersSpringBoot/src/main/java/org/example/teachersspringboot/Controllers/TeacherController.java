@@ -93,10 +93,8 @@ public class TeacherController {
     public ResponseEntity<?> deleteTeacher(@PathVariable Long id) {
         System.out.println(id);
         try{
-
             var teacher = teacherRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Teacher does not exist"));
             teacherRepository.delete(teacher);
-            System.out.println(teacher.getName());
             return new ResponseEntity<>("Teacher deleted successfully", HttpStatus.OK);
         }
         catch(IllegalArgumentException e){
