@@ -1,19 +1,12 @@
-package entity;
+package org.example.teachersspringboot;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "classes")
 public class Class {
-    @Override
-    public String toString() {
-        return "[ " + id + " ] " + name + " | ";
-    }
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

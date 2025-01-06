@@ -248,7 +248,7 @@ public class DatabaseController {
             transaction.begin();
             System.out.println("New group added: ");
             Query addGroup = entityManager.createNativeQuery(
-                    "INSERT INTO classes (Name, max_teachers) VALUES (:name, :maxSize)");
+                    "INSERT INTO classes (Name, maxTeachers) VALUES (:name, :maxSize)");
             addGroup.setParameter("name", name);
             addGroup.setParameter("maxSize", maxSize);
             addGroup.executeUpdate();
