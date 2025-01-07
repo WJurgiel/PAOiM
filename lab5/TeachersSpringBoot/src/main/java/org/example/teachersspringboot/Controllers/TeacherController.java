@@ -80,12 +80,13 @@ public class TeacherController {
             if(e.getCause() instanceof SQLException){
                 SQLException sqlException = (SQLException) e.getCause();
                 if("45000".equals(sqlException.getSQLState())){
-                    throw new TeacherSalaryException("Wynagrodzenie musi wynosić co najmniej 3000");
+                    return new ResponseEntity<>("Wynagrodzenie musi wynosić co najmniej 3000", HttpStatus.CONFLICT);
                 }
             }
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
         catch(Exception e){
+            System.out.println(e.getClass());
             return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
        }
     }

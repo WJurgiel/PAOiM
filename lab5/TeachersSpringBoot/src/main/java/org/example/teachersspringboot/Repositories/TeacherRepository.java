@@ -10,4 +10,5 @@ import java.util.List;
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     List<Teacher> findByGroupIDId(Long groupID);
     long countByGroupIDId(int groupId);
+    List<Teacher> findAllByGroupIDId(Long groupId);
 }

@@ -77,7 +77,7 @@ public class ClassController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTeacher(@PathVariable int id) {
         try{
-            var group = classRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Teacher does not exist"));
+            var group = classRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Group not found"));
             classRepository.delete(group);
             return new ResponseEntity<>("group deleted successfully", HttpStatus.OK);
         }

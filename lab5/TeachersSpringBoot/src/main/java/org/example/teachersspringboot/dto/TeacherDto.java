@@ -8,6 +8,14 @@ public class TeacherDto {
     private Integer birthYear;
     private Integer groupID;
 
+    public TeacherDto(String name, String surname, String status, Integer salary, Integer birthYear, Integer groupID) {
+        this.name = name;
+        this.surname = surname;
+        this.status = status;
+        this.salary = salary;
+        this.birthYear = birthYear;
+        this.groupID = groupID;
+    }
     public String getName() {
         return name;
     }
